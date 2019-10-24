@@ -2,15 +2,17 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+
 import java.sql.*;
 
 
 public class Controller {
-    TrainModel m = new TrainModel();
+    Connection conn = null;
+    String url = "jdbc:sqlite:C:/Users/Morten/IdeaProjects/Train_schedule_APP/src/db/Train_schedule.db";
 
     @FXML
     ComboBox<String> cbDepart;
@@ -19,43 +21,42 @@ public class Controller {
     ComboBox<String> cbDesti;
 
     @FXML
-    ComboBox<String> cbDepartureTime;
+    TextField timeField;
 
     @FXML
     TextArea textInfo;
 
     @FXML
-    private void getStation() {
-
-        cbDepart.setItems(stationsList);
-    }
-    public void routeHandler(ActionEvent e) {
-        System.out.println("Find route");
-        textInfo.setText(m.findRoute(cbDepart.getButtonCell().getText(), cbDesti.getButtonCell().getText(), cbDepartureTime.getButtonCell().getText()));
+    public void initialize() throws SQLException {
+        stationsCombo();
+        departureTimeCombo();
     }
 
-
-    private ObservableList<String> stationsList = FXCollections.observableArrayList();
-
-    public void initialize() {
-        //
-        String stationsName = " select * from Stations ";
-        Connection conn;
-        String url = "jdbc:sqlite:C:/Users/Morten/IdeaProjects/Train_schedule_APP/src/db/Train_schedule.db";
+    public void stationsCombo() throws SQLException {
         try {
-        conn = DriverManager.getConnection(url);
-            if (conn != null)
-            { conn.close(); }
+            // creating a list string with a query and connection to the database
+            ObservableList<String> stationNames = FXCollections.observableArrayList();
+            String stations = "SELECT Name FROM Stations";
+            conn = DriverManager.getConnection(url);
+            // creating a prepared statement with connection to the stations table and executing the query
+            PreparedStatement ps = conn.prepareStatement(stations);
+            ResultSet rs = ps.executeQuery();
+            // get the names as long as there is names to get
+            while (rs.next()) {
+                stationNames.add(rs.getString("Name"));
+            }
+            // sets the list in the comboboxes
+            cbDepart.setItems(stationNames);
+            cbDesti.setItems(stationNames);
+            conn.close();
+            ps.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-}
-
-    class TrainModel {
     }
 
-    String findRoute(String stat1, String stat2, String time) {
-        return "route from " + stat1 + "\n to " + stat2 + " at " + time;
+    public void departureTimeCombo() {
+
     }
 }
