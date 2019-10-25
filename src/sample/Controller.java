@@ -3,6 +3,7 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -27,9 +28,13 @@ public class Controller {
     TextArea textInfo;
 
     @FXML
+    Button routeButton;
+
+    @FXML
     public void initialize() throws SQLException {
         stationsCombo();
         departureTimeCombo();
+        calculateRoute();
     }
 
     public void stationsCombo() throws SQLException {
@@ -57,6 +62,11 @@ public class Controller {
     }
 
     public void departureTimeCombo() {
+        timeField.getText();
+
+    }
+
+    public void calculateRoute() {
 
     }
 }
