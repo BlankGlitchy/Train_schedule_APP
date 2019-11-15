@@ -2,7 +2,6 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -35,11 +34,11 @@ public class Controller {
 
     @FXML
     public void initialize() throws SQLException {
-
         stationsCombo();
-        departureTime();
         textInfo.setDisable(true);
-        //calculateRoute();
+
+
+
     }
 
     public void stationsCombo() throws SQLException {
@@ -68,32 +67,33 @@ public class Controller {
         }
     }
 
-    public void departureTime() {
-        String time = "00:00";
-        timeField.setText(time);
 
-        if (timeField.getText().matches("[a-z]")) {
-            timeField.clear();
-            timeField.setText(time);
+    @FXML
+    public void routeHandler() {
+        Connection connection = DB_Connection.getInstance().getConnection();
+        String To = "", From =  "", Time = "";
+        String query = "SELECT t.id, t.start_station, t.destination, sc.depart_time FROM Schedule as sc, Trains as t, Stations as s WHERE t.id = sc.train_id AND t.start_station LIKE ?" +
+                "AND t.destination LIKE ?" +
+                "AND sc.depart_time >= ? ORDER BY sc.depart_time";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, From + "%");
+            ps.setString(2, To + "%");
+            ps.setString(3, (Time));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String trainID = rs.getString(1);
+                String startStation = rs.getString(2);
+                String destination = rs.getString(3);
+                String departure = rs.getString(4);
+                textInfo.appendText("The train to: " + destination + "\n" + "from: " + startStation + "\n" + "leaves at: " + departure + "\n" + "\n");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-
-    public void calculateRoute(ActionEvent event) throws SQLException {
-        String stations = "SELECT name FROM Stations";
-        String time = "SELECT departTime FROM Schedule";
-        Connection connection = DB_Connection.getInstance().getConnection();
-        PreparedStatement psDepart = connection.prepareStatement(stations);
-        PreparedStatement psTime = connection.prepareStatement(time);
-        ResultSet rsStations = psDepart.executeQuery();
-        ResultSet rsTime = psTime.executeQuery();
-
-
-
-
-
-        textInfo.setText("Take the train from: " + cbDepart.getValue() + " to: " + cbDesti.getValue() + " at: " + timeField.getText());
-
-
-    }
 }
+
 
