@@ -2,6 +2,7 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -69,7 +70,7 @@ public class Controller {
 
 
     @FXML
-    public void routeHandler() {
+    public void routeHandler(ActionEvent event) {
         Connection connection = DB_Connection.getInstance().getConnection();
         String To = "", From =  "", Time = "";
         String query = "SELECT t.id, t.start_station, t.destination, sc.depart_time FROM Schedule as sc, Trains as t, Stations as s WHERE t.id = sc.train_id AND t.start_station LIKE ?" +
