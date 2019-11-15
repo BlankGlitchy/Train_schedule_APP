@@ -83,7 +83,7 @@ public class Controller {
             ps.setString(2, To + "%");
             ps.setString(3, (Time));
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 String trainID = rs.getString(1);
                 String startStation = rs.getString(2);
                 String destination = rs.getString(3);
