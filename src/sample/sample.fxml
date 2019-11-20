@@ -3,7 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="500.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="500.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.Controller">
   <children>
     <Label text="Depature:" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <GridPane.margin>
@@ -12,7 +12,7 @@
     </Label>
     <Label text="Destination:" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <GridPane.margin>
-        <Insets bottom="100.0" left="15.0" top="50.0" />
+        <Insets bottom="100.0" left="15.0" top="55.0" />
       </GridPane.margin>
     </Label>
     <Label text="Depature time:" GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -29,17 +29,17 @@
         </ComboBox>
         <ComboBox fx:id="cbDesti" prefHeight="21.0" prefWidth="110.0">
           <VBox.margin>
-            <Insets left="10.0" top="50.0" fx:id="x1" />
+            <Insets left="10.0" top="50.0" />
           </VBox.margin>
         </ComboBox>
-        <TextField id="TimeField" fx:id="timeField" prefWidth="200.0">
+        <ComboBox fx:id="timeCombo" prefHeight="21.0" prefWidth="110.0">
           <VBox.margin>
-            <Insets top="50.0" />
+            <Insets left="10.0" top="50.0" />
           </VBox.margin>
-        </TextField>
+        </ComboBox>
         <Button fx:id="routeButton" mnemonicParsing="false" onAction="#routeHandler" text="Calculate route">
           <VBox.margin>
-            <Insets left="25.0" top="20.0" />
+            <Insets left="10.0" top="20.0" />
           </VBox.margin>
         </Button>
       </children>
