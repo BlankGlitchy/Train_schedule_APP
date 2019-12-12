@@ -65,6 +65,12 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ObservableList<String> departTime = FXCollections.observableArrayList();
+        for (int i = 0; i < 24; i++) {
+            departTime.add("" + i + ":00");
+            departTime.add("" + i + ":30");
+        }
+        timeComboBox.setItems(departTime);
     }
 
 

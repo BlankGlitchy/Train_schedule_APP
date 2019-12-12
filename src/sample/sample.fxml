@@ -3,7 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="500.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.Controller">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="500.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <children>
     <Label text="Depature:" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <GridPane.margin>
@@ -32,7 +32,7 @@
             <Insets left="10.0" top="50.0" />
           </VBox.margin>
         </ComboBox>
-        <ComboBox fx:id="timeCombo" prefHeight="21.0" prefWidth="110.0">
+        <ComboBox fx:id="timeComboBox" prefHeight="21.0" prefWidth="110.0">
           <VBox.margin>
             <Insets left="10.0" top="50.0" />
           </VBox.margin>
